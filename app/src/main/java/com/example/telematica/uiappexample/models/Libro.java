@@ -3,6 +3,8 @@ package com.example.telematica.uiappexample.models;
 /**
  * Created by franciscocabezas on 12/11/15.
  */
+
+//Esta clase se mantiene
 public class Libro {
 
     private int id;

@@ -1,4 +1,4 @@
-package com.example.telematica.uiappexample;
+package com.example.telematica.uiappexample.Activities;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.telematica.uiappexample.Presenters.UIPresenterImpl;
+import com.example.telematica.uiappexample.R;
 import com.example.telematica.uiappexample.models.Libro;
 
 import java.util.List;
@@ -26,7 +28,7 @@ public class UIAdapter extends RecyclerView.Adapter<UIAdapter.ViewHolder> {
         }
     }
 
-    public UIAdapter(List<Libro> myDataset) {
+    public UIAdapter(List<Libro> myDataset, UIPresenterImpl mLocationPresenter) {
         mDataset = myDataset;
     }
 

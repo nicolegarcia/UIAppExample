@@ -13,6 +13,9 @@ import java.net.URL;
 /**
  * Created by franciscocabezas on 12/4/15.
  */
+
+
+//esta clase se mantiene
 public class HttpServerConnection {
 
     public String connectToServer(String myUrl, int timeOut){

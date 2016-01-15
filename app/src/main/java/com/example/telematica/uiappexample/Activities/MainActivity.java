@@ -1,11 +1,14 @@
-package com.example.telematica.uiappexample;
+package com.example.telematica.uiappexample.Activities;
 
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
+import com.example.telematica.uiappexample.Presenters.UIPresenterImpl;
+import com.example.telematica.uiappexample.R;
 import com.example.telematica.uiappexample.connection.HttpServerConnection;
 import com.example.telematica.uiappexample.models.Libro;
 
@@ -21,11 +24,17 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+    private UIPresenterImpl mLocationPresenter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        View view = getCurrentFocus();
+
+        mLocationPresenter = new UIPresenterImpl(MainActivity.this);
+
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
 
@@ -56,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
                     System.out.println(result);
 
                     // specify an adapter (see also next example)
-                    mAdapter = new UIAdapter(getLista(result));
+                    mAdapter = new UIAdapter(mLocationPresenter.getLista(result), mLocationPresenter);
                     mRecyclerView.setAdapter(mAdapter);
                 }
             }
@@ -65,28 +74,4 @@ public class MainActivity extends AppCompatActivity {
         task.execute();
     }
 
-    private List<Libro> getLista(String result){
-        List<Libro> listaLibros = new ArrayList<Libro>();
-        try {
-            JSONArray lista = new JSONArray(result);
-
-            int size = lista.length();
-            for(int i = 0; i < size; i++){
-                Libro libro = new Libro();
-                JSONObject objeto = lista.getJSONObject(i);
-
-                libro.setId(objeto.getInt("id"));
-                libro.setNombre(objeto.getString("nombre"));
-                libro.setEditorial(objeto.getString("editorial"));
-                libro.setGenero(objeto.getString("genero"));
-                libro.setAutor(objeto.getInt("autor"));
-
-                listaLibros.add(libro);
-            }
-            return listaLibros;
-        } catch (JSONException e) {
-            e.printStackTrace();
-            return listaLibros;
-        }
-    }
 }
